@@ -43,7 +43,7 @@
                             <td></td>
                         </tr>
                         <tr v-for="(c, index) in contents">
-                            <td>{{((store.page-1)*store.perPage)+index+1}}</td>
+                            <td>{{((page-1)*per_page)+index+1}}</td>
                             <td>{{c}}</td>
                             <td class="text-right">
                                 <div class="btn-group btn-group-sm">
