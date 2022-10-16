@@ -100,9 +100,9 @@
 </div>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
 <script type="module">
   import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
-  import moment from '<?php echo base_url() ?>/node_modules/moment/dist/moment.js'
 
   createApp({
     data() {
@@ -113,6 +113,7 @@
 
         //employee data
         contents: [],
+        search: '',
         page: 1,
         total_page: 1,
         per_page: 0,
