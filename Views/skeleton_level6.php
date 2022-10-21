@@ -7,11 +7,16 @@
                     <h3 class="card-title">Skeleton Data</h3>
 
                     <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 350px;">
-                            <input v-model="search" type="text" class="form-control float-right" placeholder="Search">
+                        <div class="input-group input-group-sm" style="width: 400px;">
+                            <input v-model="search" @keyup.enter="get_data()" type="text" class="form-control float-right" placeholder="Search">
                             <div class="input-group-append">
                                 <button @click="get_data()" type="submit" class="btn btn-default">
                                     <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <div class="input-group-append">
+                                <button @click="search = ''; get_data()" type="submit" class="btn btn-default">
+                                    <i class="fas fa-times"></i>
                                 </button>
                             </div>
                             <div class="input-group-append">
@@ -94,12 +99,71 @@
                     </table>
                 </div>
             <!-- /.card-body -->
-                <div class="card-body">
+                <div class="card-body" v-if="total_page > 10">
                     <div class="row">
                         <div class="col-md-8">
                             <ul class="pagination">
+
+                                <li class="page-item" v-show="page!=1">
+                                    <a @click="get_data(1)" class="page-link"><<</a>
+                                </li>
+                                <li class="page-item" v-show="page>1">
+                                    <a @click="get_data(page-1)" class="page-link"><</a>
+                                </li>
+                                <li class="page-item" v-show="page-3 > 0">
+                                    <a @click="get_data(page-3)" class="page-link">{{page-3}}</a>
+                                </li>
+                                <li class="page-item" v-show="page-2 > 0">
+                                    <a @click="get_data(page-2)" class="page-link">{{page-2}}</a>
+                                </li>
+                                <li class="page-item" v-show="page-1 > 0">
+                                    <a @click="get_data(page-1)" class="page-link">{{page-1}}</a>
+                                </li>
+                                <li class="page-item active">
+                                    <a @click="get_data(page)" class="page-link">{{page}}</a>
+                                </li>
+                                <li class="page-item" v-show="page < total_page">
+                                    <a @click="get_data(page+1)" class="page-link">{{page+1}}</a>
+                                </li>
+                                <li class="page-item" v-show="page+2 < total_page">
+                                    <a @click="get_data(page+2)" class="page-link">{{page+2}}</a>
+                                </li>
+                                <li class="page-item" v-show="page+3 < total_page">
+                                    <a @click="get_data(page+3)" class="page-link">{{page+3}}</a>
+                                </li>
+                                <li class="page-item" v-show="page < total_page">
+                                    <a @click="get_data(page+1)" class="page-link">></a>
+                                </li>
+                                <li class="page-item" v-show="page < total_page">
+                                    <a @click="get_data(total_page)" class="page-link">>></a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            Showing page {{page}} of {{total_page}} ({{total_data}} total results)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body" v-else>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <ul class="pagination">
+                                <li class="page-item" v-show="page!=1">
+                                    <a @click="get_data(1)" class="page-link"><<</a>
+                                </li>
+                                <li class="page-item" v-show="page>1">
+                                    <a @click="get_data(page-1)" class="page-link"><</a>
+                                </li>
                                 <li class="page-item" :class="{ active: index == page }" v-for="index in total_page" :key="index">
                                     <a @click="get_data(index)" class="page-link">{{index}}</a>
+                                </li>
+                                <li class="page-item" v-show="page < total_page">
+                                    <a @click="get_data(page+1)" class="page-link">></a>
+                                </li>
+                                <li class="page-item" v-show="page < total_page">
+                                    <a @click="get_data(total_page)" class="page-link">>></a>
                                 </li>
                             </ul>
                         </div>
@@ -107,8 +171,8 @@
                             Showing page {{page}} of {{total_page}} ({{total_data}} total results)
                         </div>
                     </div>
-                
                 </div>
+                
                 <div class="overlay" v-show="show_loading">
                     <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                 </div>
@@ -207,7 +271,7 @@
             this.page = page;
             var self = this;
             self.show_loading = true;
-            $.post('/API/employee', {
+            $.post('/API/childcare', {
                 page: self.page,
                 search: self.search
             }, function(res){
