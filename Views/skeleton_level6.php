@@ -105,10 +105,10 @@
                             <ul class="pagination">
 
                                 <li class="page-item" v-show="page!=1">
-                                    <a @click="get_data(1)" class="page-link"><<</a>
+                                    <a @click="get_data(1)" class="page-link"><i class="fas fa-angles-left"></i></a>
                                 </li>
                                 <li class="page-item" v-show="page>1">
-                                    <a @click="get_data(page-1)" class="page-link"><</a>
+                                    <a @click="get_data(page-1)" class="page-link"> <i class="fas fa-angle-left"></i> </a>
                                 </li>
                                 <li class="page-item" v-show="page-3 > 0">
                                     <a @click="get_data(page-3)" class="page-link">{{page-3}}</a>
@@ -132,10 +132,10 @@
                                     <a @click="get_data(page+3)" class="page-link">{{page+3}}</a>
                                 </li>
                                 <li class="page-item" v-show="page < total_page">
-                                    <a @click="get_data(page+1)" class="page-link">></a>
+                                    <a @click="get_data(page+1)" class="page-link"> <i class="fas fa-angle-right"></i> </a>
                                 </li>
                                 <li class="page-item" v-show="page < total_page">
-                                    <a @click="get_data(total_page)" class="page-link">>></a>
+                                    <a @click="get_data(total_page)" class="page-link"> <i class="fas fa-angles-right"></i> </a>
                                 </li>
 
                             </ul>
@@ -151,19 +151,19 @@
                         <div class="col-md-8">
                             <ul class="pagination">
                                 <li class="page-item" v-show="page!=1">
-                                    <a @click="get_data(1)" class="page-link"><<</a>
+                                    <a @click="get_data(1)" class="page-link"><i class="fas fa-angles-left"></i></a>
                                 </li>
                                 <li class="page-item" v-show="page>1">
-                                    <a @click="get_data(page-1)" class="page-link"><</a>
+                                    <a @click="get_data(page-1)" class="page-link"> <i class="fas fa-angle-left"></i> </a>
                                 </li>
                                 <li class="page-item" :class="{ active: index == page }" v-for="index in total_page" :key="index">
                                     <a @click="get_data(index)" class="page-link">{{index}}</a>
                                 </li>
                                 <li class="page-item" v-show="page < total_page">
-                                    <a @click="get_data(page+1)" class="page-link">></a>
+                                    <a @click="get_data(page+1)" class="page-link"> <i class="fas fa-angle-right"></i> </a>
                                 </li>
                                 <li class="page-item" v-show="page < total_page">
-                                    <a @click="get_data(total_page)" class="page-link">>></a>
+                                    <a @click="get_data(total_page)" class="page-link"> <i class="fas fa-angles-right"></i> </a>
                                 </li>
                             </ul>
                         </div>
